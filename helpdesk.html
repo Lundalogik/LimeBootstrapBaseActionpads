@@ -1,30 +1,37 @@
+<!-- ko dataSources: [{type: 'record', source: 'ActionPadTools.GetCompanyContactData'}, { type: 'record', source: 'ActionPadTools.GetPersonContactData'}] -->
+<!-- /ko -->
 
 <div class="header-container red">
 	<div class="header-icon"></div>
 	<h2 data-bind="text:helpdesk.helpdeskno.text"></h2>  
 		<ul class="info-links">
-			<li data-bind="text:helpdesk.person.text, limeLink:helpdesk.person, icon:'fa-user'"></li>						
-			<li data-bind="text:helpdesk.company.text, limeLink:helpdesk.company, icon:'fa-building'"></li>					
+			<li data-bind="text:helpdesk.person.text, limeLink:helpdesk.person, icon:'fa-user'"></li>
 			<li data-bind="text:person.phone.text, call:person.phone.text, icon:'fa-phone'"></li>
-			<li data-bind="text:person.mobilephone.text, call:person.phone.text, icon:'fa-mobile-phone'"></li>						
-			<li data-bind="text:company.phone.text, call:company.phone.text, icon:'fa-phone'"></li>	
+			<li data-bind="text:person.mobilephone.text, call:person.phone.text, icon:'fa-mobile-phone'"></li>
+			<li data-bind="text:person.email.text, email:person.email.text, icon:'fa-mobile-phone'"></li>	
+			<li class="divider"></li>						
+			<li data-bind="text:helpdesk.company.text, limeLink:helpdesk.company, icon:'fa-building'"></li>										
+			<li data-bind="text:company.phone.text, call:company.phone.text, icon:'fa-building'"></li>	
 		</ul> 
 </div>		
-	
-<ul class="menu expandable">
-    <li class="menu-header"data-bind="text:localize.Actionpad_Helpdesk.command"></li> 
-    <li class="divider"></li>
-    <li data-bind="vbaVisible:'ActionPad_Helpdesk.HideLinks, take', vba:'ActionPad_Helpdesk.Take', text:localize.Actionpad_Helpdesk.takecase,   icon:'fa-pencil'"></li>
-	<li data-bind="vbaVisible:'ActionPad_Helpdesk.HideLinks, putback', vba:'ActionPad_Helpdesk.Putback', text:localize.Actionpad_Helpdesk.putbackcase, icon:'fa-pencil'"></li>
-	<li data-bind="vbaVisible:'ActionPad_Helpdesk.HideLinks, done', vba:'ActionPad_Helpdesk.Done', text:localize.Actionpad_Helpdesk.casedone, icon:'fa-pencil'"></li>
-	<li data-bind="vbaVisible:'ActionPad_Helpdesk.HideLinks, undo', vba:'ActionPad_Helpdesk.take', text:localize.Actionpad_Helpdesk.caseundone,  icon:'fa-pencil'"></li>
-</ul> 
+	 
+
+<button class="btn btn-lime btn-success" data-bind="vbaVisible:'ActionPad_Helpdesk.HideLinks, done', vba:'ActionPad_Helpdesk.Done', text:localize.Actionpad_Helpdesk.casedone, icon:'fa-check'">
+</button>
+
+<button class="btn btn-lime btn-primary" data-bind="vbaVisible:'ActionPad_Helpdesk.HideLinks, take', vba:'ActionPad_Helpdesk.Take', text:localize.Actionpad_Helpdesk.takecase, icon:'fa-hand-o-right'">
+</button>
+
+<button class="btn btn-lime btn-link" data-bind="vbaVisible:'ActionPad_Helpdesk.HideLinks, putback', vba:'ActionPad_Helpdesk.Putback', text:localize.Actionpad_Helpdesk.putbackcase, icon:'fa-undo'">
+</button>
+
+<button class="btn btn-lime btn-link" data-bind="vbaVisible:'ActionPad_Helpdesk.HideLinks, undo', vba:'ActionPad_Helpdesk.take', text:localize.Actionpad_Helpdesk.caseundone,  icon:'fa-undo'">
+</button>
  
- 
-<div class="btn-group">
-	<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+<div class="btn-group btn-lime" data-bind="vbaVisible:'ActionPad_Helpdesk.HideLinks, done'">
+	<button class="btn btn-lime btn-default dropdown-toggle" data-toggle="dropdown" href="#">
 		<span data-bind="text:localize.Actionpad_Helpdesk.park, icon: 'fa-caret-down'"></span>
-	</a>
+	</button>
 	<ul class="dropdown-menu" style="min-width: 170px;">
 		<li data-bind="vba:'ActionPad_Helpdesk.Park, 1, t_park_1_hour', text:localize.Actionpad_Helpdesk.pc1h"></li>
 		<li data-bind="vba:'ActionPad_Helpdesk.Park, 2, t_park_2_hour', text:localize.Actionpad_Helpdesk.pc2h "></li>
