@@ -1,45 +1,63 @@
-﻿
 <div class="header-container orange">
     <div class="header-icon"></div>
-    <h2 data-bind="text: todo.subject.text"></h2> 
-        <ul class="info-links">			
+    <h2 data-bind="text: todo.subject.text, style:{textDecoration:todo.done.value == 1 ? 'line-through':'none'} "></h2> 
+        <ul class="info-links">
+        	<!-- ko if: todo.person.value -->		
 			<li data-bind="text:todo.person.text, limeLink: todo.person, icon:'fa-user'" </li>
-            <li data-bind="text:todo.company.text, limeLink:todo.company, icon:'fa-flag'"</li>
 			<li data-bind="text: person.phone.text, call: person.phone.text, icon: 'fa-phone' "</li>
-			<li data-bind="text: person.mobilephone.text, call: person.mobilephone.text, icon:'fa-mobile-phone'"</li>	
+			<li data-bind="text: person.mobilephone.text, call: person.mobilephone.text, icon:'fa-mobile-phone'"</li>
+			<!-- /ko -->
+			<!-- ko if: todo.company.value -->
+			<li data-bind="text:todo.company.text, limeLink:todo.company, icon:'fa-flag'"</li>	
 			<li data-bind="text: company.phone.text, call: company.phone.text, icon: 'fa-phone'"</li>
+			<!-- /ko -->
         </ul> 
     </div>
 </div>		
 	
+<!-- Warning if late -->
 <div class="alert alert-warning fullwidth" data-bind="
     visible: todo.endtime.value !== null && (moment(todo.endtime.value) < moment() && todo.done.value != 1),
     text: 'Uppgiften är ' + (todo.endtime.value != null ? moment(todo.endtime.value).fromNow(true) : '' )+ ' försenad!', 
     icon:'fa-bell'" >
 </div>
 
-<ul class="menu expandable">
-     <li class="menu-header"data-bind=" text:localize.Actionpad_Todo.command"></li>
-     <li class="divider"></li>
-     <li data-bind="vba:'Actionpad_Todo.SetDone', text:localize.Actionpad_Todo.check, icon:'fa-check'"></li>
-     <li data-bind="vba:'Actionpad_Todo.SetDone, true, false', text:localize.Actionpad_Todo.checktodo, icon:'fa-calendar'"></li>
-     <li data-bind="vba:'Actionpad_Todo.SetDone, false, true', text:localize.Actionpad_Todo.checkhistory, icon:'fa-calendar'"></li>
-	 <li data-bind="vba:'ActionpadTools.NewInspectorFromInspector, history', text:localize.Actionpad_Todo.note, icon:'fa-file-text-alt'"></li>
- </ul> 
- 
-<div class="btn-group">
-	<a class="btn btn-lime dropdown-toggle" data-toggle="dropdown" href="#" data-bind=" text:localize.Actionpad_Todo.headermoveforward, icon: 'fa-caret-down'"></a>
-	<ul class="dropdown-menu">
-		<li data-bind="vba:'ActionPad_todo.Postpone, d, 1', text:localize.Actionpad_Todo.mf1d"></li>
-	    <li class="divider"></li>
+
+<div class="btn-group btn-group-lime btn-lime-split" data-bind="visible:todo.done.value != 1 ">
+  <button type="button" class="btn btn-success" data-bind="vba:'Actionpad_Todo.SetDone', text:localize.Actionpad_Todo.check, icon:'fa-check'"></button><!-- Layout
+  --><button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
+    <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu" role="menu">
+    <li data-bind="vba:'Actionpad_Todo.SetDone, true, false', text:localize.Actionpad_Todo.checktodo, icon:'fa-plus'"></li>
+    <li data-bind="vba:'Actionpad_Todo.SetDone, false, true', text:localize.Actionpad_Todo.checkhistory, icon:'fa-plus'"></li>
+    <li ></li>
+  </ul>
+</div>
+
+
+<div class="btn-group btn-group-lime"  data-bind="visible:todo.done.value != 1">
+    <button class="btn btn-lime btn-default dropdown-toggle" data-toggle="dropdown" data-bind=" text:localize.Actionpad_Todo.headermoveforward, icon: 'fa-caret-down'">
+    </button>
+    <ul class="dropdown-menu">
+        <li data-bind="vba:'ActionPad_todo.Postpone, d, 1', text:localize.Actionpad_Todo.mf1d"></li>
+        <li class="divider"></li>
         <li data-bind="vba:'ActionPad_todo.Postpone, ww, 1', text:localize.Actionpad_Todo.mf1w"></li>
-		<li data-bind="vba:'ActionPad_todo.Postpone, ww, 2', text:localize.Actionpad_Todo.mf2w"></li>
+        <li data-bind="vba:'ActionPad_todo.Postpone, ww, 2', text:localize.Actionpad_Todo.mf2w"></li>
         <li class="divider"></li>
         <li data-bind="vba:'ActionPad_todo.Postpone, m, 1', text:localize.Actionpad_Todo.mf1m"></li>
-		<li data-bind="vba:'ActionPad_todo.Postpone, m, 6', text:localize.Actionpad_Todo.mf6m"></li>
-		<li class="divider"></li>
+        <li data-bind="vba:'ActionPad_todo.Postpone, m, 6', text:localize.Actionpad_Todo.mf6m"></li>
+        <li class="divider"></li>
         <li data-bind="vba:'ActionPad_todo.Postpone, yyyy, 1', text:localize.Actionpad_Todo.mf1y"></li>
-	</ul>
-</div>		 
+    </ul>
+</div> 
+	 
+<div class="btn btn-lime btn-link" data-bind="visible:todo.done.value == 1,text:localize.Actionpad_Todo.todoundone, icon:'fa-undo',  vba:'ActionPad_Todo.ResumeTodo'">
+    
+</div>
 
+<div class="btn btn-lime btn-link" data-bind="vba:'ActionpadTools.NewInspectorFromInspector, history', text:localize.Actionpad_Todo.note, icon:'fa-pencil'">
+    
+</div>
 
+<!--<div data-app="{app:'checklist',config:{canBeUnchecked:true,allowRemove:true, canAddTask:true}}"></div-->

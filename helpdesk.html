@@ -5,13 +5,16 @@
 	<div class="header-icon"></div>
 	<h2 data-bind="text:helpdesk.helpdeskno.text"></h2>  
 		<ul class="info-links">
+			<!-- ko if: helpdesk.person.value -->
 			<li data-bind="text:helpdesk.person.text, limeLink:helpdesk.person, icon:'fa-user'"></li>
 			<li data-bind="text:person.phone.text, call:person.phone.text, icon:'fa-phone'"></li>
 			<li data-bind="text:person.mobilephone.text, call:person.phone.text, icon:'fa-mobile-phone'"></li>
-			<li data-bind="text:person.email.text, email:person.email.text, icon:'fa-mobile-phone'"></li>	
-			<li class="divider"></li>						
-			<li data-bind="text:helpdesk.company.text, limeLink:helpdesk.company, icon:'fa-building'"></li>										
-			<li data-bind="text:company.phone.text, call:company.phone.text, icon:'fa-building'"></li>	
+			<li data-bind="text:person.email.text, email:person.email.text, icon:'fa-mobile-phone'"></li>
+			<!-- /ko -->	
+			<!-- ko if: helpdesk.company.value -->			
+			<li data-bind="text:helpdesk.company.text, limeLink:helpdesk.company, icon:'fa-building'"></li>						
+			<li data-bind="text:company.phone.text, call:company.phone.text, icon:'fa-building'"></li>
+			<!-- /ko -->
 		</ul> 
 </div>		
 	 
@@ -22,13 +25,10 @@
 <button class="btn btn-lime btn-primary" data-bind="vbaVisible:'ActionPad_Helpdesk.HideLinks, take', vba:'ActionPad_Helpdesk.Take', text:localize.Actionpad_Helpdesk.takecase, icon:'fa-hand-o-right'">
 </button>
 
-<button class="btn btn-lime btn-link" data-bind="vbaVisible:'ActionPad_Helpdesk.HideLinks, putback', vba:'ActionPad_Helpdesk.Putback', text:localize.Actionpad_Helpdesk.putbackcase, icon:'fa-undo'">
-</button>
-
 <button class="btn btn-lime btn-link" data-bind="vbaVisible:'ActionPad_Helpdesk.HideLinks, undo', vba:'ActionPad_Helpdesk.take', text:localize.Actionpad_Helpdesk.caseundone,  icon:'fa-undo'">
 </button>
  
-<div class="btn-group btn-lime" data-bind="vbaVisible:'ActionPad_Helpdesk.HideLinks, done'">
+<div class="btn-group btn-group-lime" data-bind="vbaVisible:'ActionPad_Helpdesk.HideLinks, done'">
 	<button class="btn btn-lime btn-default dropdown-toggle" data-toggle="dropdown">
 		<span data-bind="text:localize.Actionpad_Helpdesk.park, icon: 'fa-caret-down'"></span>
 	</button>
@@ -45,6 +45,8 @@
 		<li data-bind="vba:'ActionPad_Helpdesk.Park, 4, t_park_searched_mes', text:localize.Actionpad_Helpdesk.nottheremsg"></li>
 	</ul>	
 </div>
-	 
+
+<button class="btn btn-lime btn-link" data-bind="vbaVisible:'ActionPad_Helpdesk.HideLinks, putback', vba:'ActionPad_Helpdesk.Putback', text:localize.Actionpad_Helpdesk.putbackcase, icon:'fa-undo'">
+</button>
 
 
